@@ -10,6 +10,7 @@ RUN apt-get update && \
 
 WORKDIR /home
 
+
 RUN cd /home && \
     git clone --depth 1 git://source.ffmpeg.org/ffmpeg.git && \
     cd ffmpeg && \
