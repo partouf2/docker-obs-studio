@@ -1,6 +1,7 @@
 FROM rsmmr/clang:latest
 
 RUN apt-get update && \
+    apt-get upgrade -y && \
     apt-get install -y git-core wget build-essential pkg-config cmake git checkinstall zip unzip zlib1g-dev && \
     apt-get install -y libx11-dev libgl1-mesa-dev libpulse-dev libxcomposite-dev \
         libxinerama-dev libv4l-dev libudev-dev libfreetype6-dev \
