@@ -2,7 +2,7 @@ FROM rsmmr/clang:latest
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git-core wget build-essential pkg-config cmake git checkinstall zip unzip zlib1g-dev && \
+    apt-get install -y git-core wget build-essential pkg-config git checkinstall zip unzip zlib1g-dev && \
     apt-get install -y libx11-dev libgl1-mesa-dev libpulse-dev libxcomposite-dev \
         libxinerama-dev libv4l-dev libudev-dev libfreetype6-dev \
         libfontconfig-dev qtbase5-dev libqt5x11extras5-dev libx264-dev \
@@ -11,6 +11,10 @@ RUN apt-get update && \
 
 WORKDIR /home
 
+RUN cd /home && \
+    wget https://github.com/Kitware/CMake/releases/download/v3.16.0/cmake-3.16.0-Linux-x86_64.sh && \
+    chmod +x cmake-3.16.0-Linux-x86_64.sh && \
+    ./cmake-3.16.0-Linux-x86_64.sh
 
 RUN cd /home && \
     git clone --depth 1 git://source.ffmpeg.org/ffmpeg.git && \
