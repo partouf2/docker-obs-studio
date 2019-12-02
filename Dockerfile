@@ -17,7 +17,7 @@ RUN cd /home && \
     wget https://github.com/Kitware/CMake/releases/download/v3.16.0/cmake-3.16.0-Linux-x86_64.sh && \
     chmod +x cmake-3.16.0-Linux-x86_64.sh && \
     ./cmake-3.16.0-Linux-x86_64.sh --skip-license && \
-    export PATH=$PATH:/home/cmake/bin
+    export PATH=/home/cmake/bin:$PATH
 
 RUN cd /home && \
     git clone --depth 1 git://source.ffmpeg.org/ffmpeg.git && \
@@ -31,7 +31,7 @@ RUN cd /home && \
     git clone --recursive https://github.com/jp9000/obs-studio.git && \
     cd obs-studio && \
     mkdir build && cd build && \
-    cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr .. && \
+    /home/cmake/bin/cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr .. && \
     make -j4 && \
     checkinstall --pkgname=obs-studio --fstrans=no --backup=no \
        --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
