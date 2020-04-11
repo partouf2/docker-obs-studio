@@ -50,14 +50,6 @@ RUN apt-get update && \
 WORKDIR /home
 
 RUN cd /home && \
-    git clone --depth 1 git://source.ffmpeg.org/ffmpeg.git && \
-    cd ffmpeg && \
-    ./configure --enable-shared --prefix=/usr && \
-    make -j4 && \
-    checkinstall --pkgname=FFmpeg --fstrans=no --backup=no \
-        --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
-
-RUN cd /home && \
     git clone --recursive https://github.com/obsproject/obs-studio.git && \
     cd obs-studio && \
     mkdir build && cd build && \
