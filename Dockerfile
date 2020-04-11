@@ -6,6 +6,8 @@ RUN apt-get update && \
           build-essential \
           checkinstall \
           git \
+          wget \
+          cmake \
           libmbedtls-dev \
           libasound2-dev \
           libavcodec-dev \
@@ -46,14 +48,6 @@ RUN apt-get update && \
           libxcb1-dev
 
 WORKDIR /home
-
-RUN cd /home && \
-    mkdir cmake && \
-    cd cmake && \
-    wget https://github.com/Kitware/CMake/releases/download/v3.16.0/cmake-3.16.0-Linux-x86_64.sh && \
-    chmod +x cmake-3.16.0-Linux-x86_64.sh && \
-    ./cmake-3.16.0-Linux-x86_64.sh --skip-license && \
-    export PATH=/home/cmake/bin:$PATH
 
 RUN cd /home && \
     git clone --depth 1 git://source.ffmpeg.org/ffmpeg.git && \
