@@ -64,14 +64,10 @@ RUN cd /home && \
         --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
 
 RUN cd /home && \
-    wget https://cdn-fastly.obsproject.com/downloads/cef_binary_3770_linux64.tar.bz2 && \
-    tar -xjf ./cef_binary_3770_linux64.tar.bz2
-
-RUN cd /home && \
     git clone --recursive https://github.com/obsproject/obs-studio.git && \
     cd obs-studio && \
     mkdir build && cd build && \
-    cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_BROWSER=ON -DCEF_ROOT_DIR="../../cef_binary_3770_linux64" .. && \
+    cmake -DUNIX_STRUCTURE=1 .. && \
     make -j4 && \
     checkinstall --pkgname=obs-studio --fstrans=no --backup=no \
        --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
