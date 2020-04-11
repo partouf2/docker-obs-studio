@@ -2,7 +2,7 @@ FROM rsmmr/clang:latest
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install \
+    apt-get install -y \
           build-essential \
           checkinstall \
           git \
