@@ -5,7 +5,6 @@ RUN apt-get update && \
     apt-get install \
           build-essential \
           checkinstall \
-          cmake \
           git \
           libmbedtls-dev \
           libasound2-dev \
