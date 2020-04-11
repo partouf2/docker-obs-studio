@@ -50,6 +50,14 @@ RUN apt-get update && \
 WORKDIR /home
 
 RUN cd /home && \
+    mkdir cmake && \
+    cd cmake && \
+    wget https://github.com/Kitware/CMake/releases/download/v3.17.1/cmake-3.17.1-Linux-x86_64.sh && \
+    chmod +x cmake-3.17.1-Linux-x86_64.sh && \
+    ./cmake-3.17.1-Linux-x86_64.sh --skip-license && \
+    export PATH=/home/cmake/bin:$PATH
+
+RUN cd /home && \
     git clone --recursive https://github.com/obsproject/obs-studio.git && \
     cd obs-studio && \
     mkdir build && cd build && \
