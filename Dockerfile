@@ -7,7 +7,6 @@ RUN apt-get update && \
           checkinstall \
           git \
           wget \
-          cmake \
           libmbedtls-dev \
           libasound2-dev \
           libavcodec-dev \
