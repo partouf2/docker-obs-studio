@@ -2,12 +2,49 @@ FROM rsmmr/clang:latest
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git-core wget build-essential pkg-config git checkinstall zip unzip zlib1g-dev && \
-    apt-get install -y libx11-dev libgl1-mesa-dev libpulse-dev libxcomposite-dev \
-        libxinerama-dev libv4l-dev libudev-dev libfreetype6-dev \
-        libfontconfig-dev qtbase5-dev libqt5x11extras5-dev libx264-dev \
-        libxcb-xinerama0-dev libxcb-shm0-dev libjack-jackd2-dev libcurl4-openssl-dev && \
-    apt-get install -y zlib1g-dev yasm
+    apt-get install \
+          build-essential \
+          checkinstall \
+          cmake \
+          git \
+          libmbedtls-dev \
+          libasound2-dev \
+          libavcodec-dev \
+          libavdevice-dev \
+          libavfilter-dev \
+          libavformat-dev \
+          libavutil-dev \
+          libcurl4-openssl-dev \
+          libfdk-aac-dev \
+          libfontconfig-dev \
+          libfreetype6-dev \
+          libgl1-mesa-dev \
+          libjack-jackd2-dev \
+          libjansson-dev \
+          libluajit-5.1-dev \
+          libpulse-dev \
+          libqt5x11extras5-dev \
+          libspeexdsp-dev \
+          libswresample-dev \
+          libswscale-dev \
+          libudev-dev \
+          libv4l-dev \
+          libvlc-dev \
+          libx11-dev \
+          libx264-dev \
+          libxcb-shm0-dev \
+          libxcb-xinerama0-dev \
+          libxcomposite-dev \
+          libxinerama-dev \
+          pkg-config \
+          python3-dev \
+          qtbase5-dev \
+          libqt5svg5-dev \
+          swig \
+          libxcb-randr0-dev \
+          libxcb-xfixes0-dev \
+          libx11-xcb-dev \
+          libxcb1-dev
 
 WORKDIR /home
 
@@ -28,10 +65,14 @@ RUN cd /home && \
         --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
 
 RUN cd /home && \
-    git clone --recursive https://github.com/jp9000/obs-studio.git && \
+    wget https://cdn-fastly.obsproject.com/downloads/cef_binary_3770_linux64.tar.bz2 && \
+    tar -xjf ./cef_binary_3770_linux64.tar.bz2
+
+RUN cd /home && \
+    git clone --recursive https://github.com/obsproject/obs-studio.git && \
     cd obs-studio && \
     mkdir build && cd build && \
-    /home/cmake/bin/cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr .. && \
+    cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_BROWSER=ON -DCEF_ROOT_DIR="../../cef_binary_3770_linux64" .. && \
     make -j4 && \
     checkinstall --pkgname=obs-studio --fstrans=no --backup=no \
        --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
